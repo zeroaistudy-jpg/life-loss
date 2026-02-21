@@ -33,12 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
         benzPrice: 12000000,
         hourlyWage: 1500,
         messages: [
-            "ふむ、救いようのない虚無の達人ですね。あなたの人生、砂時計の穴が崩壊しているようです。",
-            "時間は金なりと言いますが、あなたの場合は砂利のようにドブに捨てているようですよ。",
-            "その損失で、ベンツが何台買えたことか。現実を見るのが怖くなりましたか？",
-            "虚無に捧げた時間。それはそれで、王族のような贅沢な浪費癖ですね（皮肉です）。",
-            "あなたの砂時計、底が見えなくなっていますよ。今のうちに目を覚ましなさい。",
-            "損失を可視化して、少しは血の気が引きましたか？ まだ眠そうですね。"
+            "ふむ、これまで虚無を積み上げてきた達人ですね。あなたの人生の足跡、砂時計の砂が虚空に消えています。",
+            "時間は金なりと言いますが、今日までドブに捨て続けてきたようですよ。自覚はありますか？",
+            "今日までの損失額で、高級車が買えたはずですね。失った時間は二度と戻りません。",
+            "過去に捧げた膨大な虚無。それはそれで、王族のような贅沢な浪費の歴史ですね（皮肉です）。",
+            "あなたの砂時計、過去に溜まった虚無の重みで割れそうですよ。今のうちに現実を見なさい。",
+            "積み上げた損失を可視化して、少しは後悔の念が湧きましたか？ 反省しなさい。"
         ]
     };
 
@@ -108,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalScore = Math.max(0, answers.reduce((a, b) => a + b, 0));
         const dailyLossHours = totalScore * 0.5;
         const annualLossHours = dailyLossHours * 365;
-        const lifetimeLossHours = Math.floor(annualLossHours * (80 / age));
-        const moneyLoss = Math.floor(lifetimeLossHours * 8 * LAB_CONFIG.hourlyWage);
+        const currentTotalLossHours = Math.floor(annualLossHours * age);
+        const moneyLoss = Math.floor(currentTotalLossHours * 8 * LAB_CONFIG.hourlyWage);
         const benzCount = (moneyLoss / LAB_CONFIG.benzPrice).toFixed(2);
 
         // Highlight top loss item (find first "Yes")
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // UI Updates
         totalScoreText.textContent = totalScore;
         dailyLossText.textContent = dailyLossHours.toFixed(1);
-        totalLossTimeText.textContent = lifetimeLossHours.toLocaleString();
+        totalLossTimeText.textContent = currentTotalLossHours.toLocaleString();
         totalLossMoneyText.textContent = moneyLoss.toLocaleString();
         benzCountText.textContent = benzCount;
         topLossItemText.textContent = topLossItem;
@@ -127,7 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Transitions
         inputForm.classList.add('hidden');
         resultArea.classList.remove('hidden');
-        resultArea.scrollIntoView({ behavior: 'smooth' });
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
         // Character Message
         const msg = LAB_CONFIG.messages[Math.floor(Math.random() * LAB_CONFIG.messages.length)];
@@ -145,11 +147,14 @@ document.addEventListener('DOMContentLoaded', () => {
         inputForm.classList.remove('hidden');
         resultArea.classList.add('hidden');
         spiritMessage.textContent = "「次は何を無駄にしているか調べますか？ お手柔らかに。」";
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const share = () => {
         const benz = benzCountText.textContent;
-        const text = `【人生損失ラボ】私の今後の無駄時間は「ベンツ ${benz} 台分」の損失に相当するようです。砂時計の精に現実を突きつけられました。 #人生損失ラボ #損失ラボシリーズ`;
+        const text = `【人生損失ラボ】私のこれまでの人生での累計無駄時間は「ベンツ ${benz} 台分」の損失に相当するようです。砂時計の精に現実を突きつけられました。 #人生損失ラボ #損失ラボシリーズ`;
         const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
         window.open(url, '_blank');
     };
