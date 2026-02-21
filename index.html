@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人生損失ラボ | 損失ラボシリーズ</title>
+    <meta name="description" content="あなたの何気ない無駄時間が、一生でどれほどの損失になるか可視化します。砂時計の精があなたの「見えない損失」を診断。">
+    
+    <!-- OGP -->
+    <meta property="og:title" content="人生損失ラボ | 損失ラボシリーズ">
+    <meta property="og:description" content="あなたの無駄時間を寿命と金額で可視化。砂時計の精からの「刺さる」一言メッセージ。">
+    <meta property="og:image" content="assets/hourglass_spirit.png">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/hourglass_spirit.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <div class="container">
+        <header>
+            <h1 class="glow-text">LOSS LAB <span class="sub-title">Series</span></h1>
+            <p class="lab-tagline">〜見えない損失を可視化する〜</p>
+        </header>
+
+        <main>
+            <section id="tool-container" class="glass-card">
+                <div class="character-area">
+                    <img src="assets/hourglass_spirit.png" alt="砂時計の精" id="spirit-img">
+                    <div class="speech-bubble" id="spirit-message">
+                        「ようこそ、損失ラボへ。あなたの貴重な時間が、どれだけ『虚無』に消えているか調べてあげましょう。」
+                    </div>
+                </div>
+
+                <div class="input-form">
+                    <h2 id="lab-title">人生損失ラボ</h2>
+                    
+                    <div class="input-group">
+                        <label for="age">現在の年齢</label>
+                        <input type="number" id="age" placeholder="例: 25" min="0" max="150">
+                        <span class="unit">歳</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="wasted-time">1日の無駄時間</label>
+                        <input type="number" id="wasted-time" placeholder="例: 3" min="0" max="24" step="0.5">
+                        <span class="unit">時間</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="hourly-wage">時給換算 (任意)</label>
+                        <input type="number" id="hourly-wage" placeholder="例: 1500" min="0">
+                        <span class="unit">円</span>
+                    </div>
+
+                    <button id="calc-btn" class="primary-btn">損失を可視化する</button>
+                </div>
+
+                <div id="result-area" class="hidden">
+                    <div class="result-grid">
+                        <div class="result-card">
+                            <h3>年間損失</h3>
+                            <p class="value" id="yearly-loss">-</p>
+                            <span class="unit">時間</span>
+                        </div>
+                        <div class="result-card">
+                            <h3>生涯損失時間</h3>
+                            <p class="value highlight" id="total-loss-time">-</p>
+                            <span class="unit">時間（80歳想定）</span>
+                        </div>
+                        <div class="result-card" id="money-loss-card">
+                            <h3>生涯損失金額</h3>
+                            <p class="value" id="total-loss-money">-</p>
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+
+                    <div class="share-area">
+                        <button id="share-btn" class="share-btn">Xでシェアして戒める</button>
+                        <button id="reset-btn" class="secondary-btn">再検査</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Loss Lab Series / 砂時計の精</p>
+        </footer>
+    </div>
+
+    <!-- Google Analytics placeholder -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
