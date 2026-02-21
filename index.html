@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>人生損失ラボ | 損失ラボシリーズ</title>
     <meta name="description" content="あなたの何気ない無駄時間が、一生でどれほどの損失になるか可視化します。砂時計の精があなたの「見えない損失」を診断。">
-    
+
     <!-- OGP -->
     <meta property="og:title" content="人生損失ラボ | 損失ラボシリーズ">
     <meta property="og:description" content="あなたの無駄時間を寿命と金額で可視化。砂時計の精からの「刺さる」一言メッセージ。">
     <meta property="og:image" content="assets/og_image.png">
     <meta property="og:type" content="website">
-    
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="assets/favicon.png" type="image/png">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="dark-theme">
     <div class="container">
         <header>
@@ -36,47 +40,75 @@
                     </div>
                 </div>
 
+                <!-- Top Ad Placeholder -->
+                <div class="ad-placeholder top-ad">
+                    <p>ADVERTISEMENT</p>
+                </div>
+
                 <div class="input-form">
-                    <h2 id="lab-title">人生損失ラボ</h2>
-                    
+                    <h2 id="lab-title">人生損失ラボ - 虚無への問い</h2>
+
                     <div class="input-group">
                         <label for="age">現在の年齢</label>
-                        <input type="number" id="age" placeholder="例: 25" min="0" max="150">
+                        <input type="number" id="age" placeholder="例: 25" min="1" max="150">
                         <span class="unit">歳</span>
                     </div>
 
-                    <div class="input-group">
-                        <label for="wasted-time">1日の無駄時間</label>
-                        <input type="number" id="wasted-time" placeholder="例: 3" min="0" max="24" step="0.5">
-                        <span class="unit">時間</span>
+                    <div class="quiz-container">
+                        <p class="quiz-instructions">以下の項目について、あなたの習慣に当てはまるものを選んでください。</p>
+                        <div id="questions-list">
+                            <!-- JS でここに質問が注入されます -->
+                        </div>
                     </div>
 
-                    <div class="input-group">
-                        <label for="hourly-wage">時給換算 (任意)</label>
-                        <input type="number" id="hourly-wage" placeholder="例: 1500" min="0">
-                        <span class="unit">円</span>
+                    <!-- Bottom Ad Placeholder -->
+                    <div class="ad-placeholder inline-ad">
+                        <p>ADVERTISEMENT</p>
                     </div>
 
-                    <button id="calc-btn" class="primary-btn">損失を可視化する</button>
+                    <button id="calc-btn" class="primary-btn">解析を開始する</button>
                 </div>
 
                 <div id="result-area" class="hidden">
                     <div class="result-grid">
                         <div class="result-card">
-                            <h3>年間損失</h3>
-                            <p class="value" id="yearly-loss">-</p>
-                            <span class="unit">時間</span>
+                            <h3>総合虚無スコア</h3>
+                            <p class="value" id="total-score">-</p>
+                            <span class="unit">pt</span>
+                        </div>
+                        <div class="result-card">
+                            <h3>推定日別損失</h3>
+                            <p class="value" id="daily-loss">-</p>
+                            <span class="unit">時間 / 日</span>
                         </div>
                         <div class="result-card">
                             <h3>生涯損失時間</h3>
                             <p class="value highlight" id="total-loss-time">-</p>
-                            <span class="unit">時間（80歳想定）</span>
+                            <span class="unit">時間（80歳換算）</span>
                         </div>
                         <div class="result-card" id="money-loss-card">
-                            <h3>生涯損失金額</h3>
+                            <h3>生涯損失金額（時給換算）</h3>
                             <p class="value" id="total-loss-money">-</p>
                             <span class="unit">円</span>
                         </div>
+                    </div>
+
+                    <div class="benz-section">
+                        <h4>損失額をベンツ（1,200万円）に換算すると</h4>
+                        <div class="benz-display">
+                            <span id="benz-count" class="benz-value">-</span>
+                            <span class="unit">台分</span>
+                        </div>
+                    </div>
+
+                    <div id="highlight-section" class="highlight-card">
+                        <h3>最大損失アクション</h3>
+                        <p id="top-loss-item">-</p>
+                    </div>
+
+                    <!-- Result Ad Placeholder -->
+                    <div class="ad-placeholder result-ad">
+                        <p>ADVERTISEMENT</p>
                     </div>
 
                     <div class="share-area">
@@ -95,12 +127,13 @@
     <!-- Google Analytics placeholder -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
     </script>
 
     <script src="script.js"></script>
 </body>
+
 </html>

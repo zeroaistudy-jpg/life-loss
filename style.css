@@ -44,6 +44,7 @@ header {
     font-size: 2.5rem;
     background: linear-gradient(to right, #6366f1, #a855f7);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 20px var(--glow-color);
 }
@@ -87,8 +88,15 @@ header {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .speech-bubble {
@@ -169,6 +177,157 @@ header {
     transform: translateY(0);
 }
 
+/* Quiz Styles */
+.quiz-container {
+    margin-top: 1.5rem;
+}
+
+.quiz-instructions {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.question-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: background 0.2s;
+}
+
+.question-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.question-text {
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-main);
+}
+
+.options-group {
+    display: flex;
+    gap: 8px;
+}
+
+.option-btn {
+    flex: 1;
+    padding: 0.6rem 0.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.option-btn.active[data-value="1"] {
+    background: rgba(79, 70, 229, 0.3);
+    border-color: var(--accent-primary);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(79, 70, 229, 0.4);
+}
+
+.option-btn.active[data-value="-1"] {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: var(--error-red);
+    color: #fff;
+}
+
+.option-btn.active[data-value="0"] {
+    background: rgba(148, 163, 184, 0.2);
+    border-color: var(--text-muted);
+    color: #fff;
+}
+
+/* Ad Placeholders */
+.ad-placeholder {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+}
+
+.top-ad {
+    height: 60px;
+    margin-bottom: 1.5rem;
+}
+
+.inline-ad {
+    height: 100px;
+    margin: 1.5rem 0;
+}
+
+.result-ad {
+    height: 150px;
+    margin-bottom: 1.5rem;
+}
+
+/* Benz & Highlight Section */
+.benz-section {
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1));
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.benz-section h4 {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.benz-display {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.benz-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fbbf24;
+    text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+
+.highlight-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #f87171;
+    padding: 1.2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.highlight-card h3 {
+    font-size: 0.8rem;
+    color: #f87171;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+}
+
+.highlight-card p {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
 /* Results Section */
 .hidden {
     display: none;
@@ -180,8 +339,15 @@ header {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .result-grid {
@@ -258,6 +424,7 @@ footer {
     .result-grid {
         grid-template-columns: 1fr 1fr;
     }
+
     .result-grid .result-card:nth-child(2) {
         grid-column: span 2;
     }
