@@ -40,11 +40,6 @@
                     </div>
                 </div>
 
-                <!-- Top Ad Placeholder -->
-                <div class="ad-placeholder top-ad">
-                    <p>ADVERTISEMENT</p>
-                </div>
-
                 <div class="input-form">
                     <h2 id="lab-title">人生損失ラボ - 虚無への問い</h2>
 
@@ -56,14 +51,10 @@
 
                     <div class="quiz-container">
                         <p class="quiz-instructions">以下の項目について、あなたの習慣に当てはまるものを選んでください。</p>
+                        <p class="quiz-meta-info">※ 質問は全部で20問です</p>
                         <div id="questions-list">
                             <!-- JS でここに質問が注入されます -->
                         </div>
-                    </div>
-
-                    <!-- Bottom Ad Placeholder -->
-                    <div class="ad-placeholder inline-ad">
-                        <p>ADVERTISEMENT</p>
                     </div>
 
                     <button id="calc-btn" class="primary-btn">解析を開始する</button>
@@ -72,9 +63,14 @@
                 <div id="result-area" class="hidden">
                     <div class="result-grid">
                         <div class="result-card">
-                            <h3>総合虚無スコア</h3>
-                            <p class="value" id="total-score">-</p>
-                            <span class="unit">pt</span>
+                            <h3>総合虚無スコア / 人生の虚無率</h3>
+                            <div class="score-display">
+                                <span class="value" id="total-score">-</span>
+                                <span class="unit">pt</span>
+                                <span class="separator">/</span>
+                                <span class="value highlight" id="nihility-rate">-</span>
+                                <span class="unit">%</span>
+                            </div>
                         </div>
                         <div class="result-card">
                             <h3>推定日別損失</h3>
@@ -84,31 +80,21 @@
                         <div class="result-card">
                             <h3>過去の累計損失時間</h3>
                             <p class="value highlight" id="total-loss-time">-</p>
-                            <span class="unit">時間（今日まで）</span>
+                            <span class="unit">（今日まで）</span>
                         </div>
                         <div class="result-card" id="money-loss-card">
                             <h3>過去の累計損失金額</h3>
                             <p class="value" id="total-loss-money">-</p>
-                            <span class="unit">円（時給換算）</span>
+                            <span class="unit">（時給換算）</span>
                         </div>
                     </div>
 
                     <div class="benz-section">
-                        <h4>損失額をベンツ（1,200万円）に換算すると</h4>
+                        <h4>損失額をベンツ（1,500万円）に換算すると</h4>
                         <div class="benz-display">
                             <span id="benz-count" class="benz-value">-</span>
                             <span class="unit">台分</span>
                         </div>
-                    </div>
-
-                    <div id="highlight-section" class="highlight-card">
-                        <h3>最大損失アクション</h3>
-                        <p id="top-loss-item">-</p>
-                    </div>
-
-                    <!-- Result Ad Placeholder -->
-                    <div class="ad-placeholder result-ad">
-                        <p>ADVERTISEMENT</p>
                     </div>
 
                     <div class="share-area">

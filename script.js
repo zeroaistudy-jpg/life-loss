@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const LAB_CONFIG = {
         title: "人生損失ラボ - 虚無への問い",
-        benzPrice: 12000000,
+        benzPrice: 15000000,
         hourlyWage: 1500,
         messages: [
             "ふむ、これまで虚無を積み上げてきた達人ですね。あなたの人生の足跡、砂時計の砂が虚空に消えています。",
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalLossTimeText = document.getElementById('total-loss-time');
     const totalLossMoneyText = document.getElementById('total-loss-money');
     const benzCountText = document.getElementById('benz-count');
-    const topLossItemText = document.getElementById('top-loss-item');
+    const nihilityRateText = document.getElementById('nihility-rate');
     const spiritMessage = document.getElementById('spirit-message');
 
     const shareBtn = document.getElementById('share-btn');
@@ -96,6 +96,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const formatTime = (h) => {
+        if (h >= 10000) {
+            return (h / 10000).toFixed(1) + "万時間";
+        }
+        return h.toLocaleString() + "時間";
+    };
+
+    const formatMoney = (n) => {
+        const oku = Math.floor(n / 100000000);
+        const man = Math.floor((n % 100000000) / 10000);
+        const yen = n % 10000;
+        let res = "";
+        if (oku > 0) res += oku + "億";
+        if (man > 0) res += man + "万";
+        if (yen > 0 || res === "") res += yen;
+        return res + "円";
+    };
+
     // --- Core Logic ---
 
     const calculate = () => {
@@ -111,18 +129,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentTotalLossHours = Math.floor(annualLossHours * age);
         const moneyLoss = Math.floor(currentTotalLossHours * 8 * LAB_CONFIG.hourlyWage);
         const benzCount = (moneyLoss / LAB_CONFIG.benzPrice).toFixed(2);
-
-        // Highlight top loss item (find first "Yes")
-        const topLossIndex = answers.indexOf(1);
-        const topLossItem = topLossIndex !== -1 ? QUESTIONS[topLossIndex] : "特になし（虚無の極み）";
+        const nihilityRate = ((totalScore / 20) * 100).toFixed(0);
 
         // UI Updates
         totalScoreText.textContent = totalScore;
+        nihilityRateText.textContent = nihilityRate;
         dailyLossText.textContent = dailyLossHours.toFixed(1);
-        totalLossTimeText.textContent = currentTotalLossHours.toLocaleString();
-        totalLossMoneyText.textContent = moneyLoss.toLocaleString();
+        totalLossTimeText.textContent = formatTime(currentTotalLossHours);
+        totalLossMoneyText.textContent = formatMoney(moneyLoss);
         benzCountText.textContent = benzCount;
-        topLossItemText.textContent = topLossItem;
 
         // Transitions
         inputForm.classList.add('hidden');
@@ -153,8 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const share = () => {
+        const rate = nihilityRateText.textContent;
         const benz = benzCountText.textContent;
-        const text = `【人生損失ラボ】私のこれまでの人生での累計無駄時間は「ベンツ ${benz} 台分」の損失に相当するようです。砂時計の精に現実を突きつけられました。 #人生損失ラボ #損失ラボシリーズ`;
+        const text = `【人生損失ラボ】私の人生の虚無率は ${rate}% でした。これまでの損失はベンツ ${benz} 台分に相当するようです。 #人生損失ラボ #損失ラボシリーズ`;
         const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
         window.open(url, '_blank');
     };
