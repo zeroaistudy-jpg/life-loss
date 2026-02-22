@@ -355,6 +355,8 @@ header {
     border: 2px solid #fff;
     border-radius: 4px;
     padding: 5px 10px;
+    padding-right: 2px;
+    /* Minimal padding so arrows can reach the edge */
     flex: 1;
     position: relative;
     /* For absolute unit positioning */
@@ -368,8 +370,8 @@ header {
     font-size: 1.4rem;
     font-family: 'Orbitron', sans-serif;
     text-align: right;
-    padding-right: 35px;
-    /* Enough space ONLY for the unit and arrows close together */
+    padding-right: 48px;
+    /* Room for '歳' andArrows */
     margin: 0;
 }
 
@@ -382,13 +384,12 @@ header {
 .age-input-box-wrapper input::-webkit-outer-spin-button {
     opacity: 1;
     cursor: pointer;
-    margin-right: -5px;
-    /* Push arrows to the absolute edge */
+    margin: 0;
 }
 
 .age-input-box-wrapper .unit {
     position: absolute;
-    right: 20px;
+    right: 22px;
     /* Positioned just to the left of native spin arrows at the edge */
     color: #fff;
     font-size: 1.1rem;
