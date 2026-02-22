@@ -30,18 +30,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const MAX_SCORE = QUESTIONS.reduce((sum, q) => sum + q.points, 0); // 62
 
+    const SPIRIT_TIERS = [
+        { max: 4, title: "砂の初心者", msg: "あなたの時間、まだ澄んだ砂のままですね。虚無の影はほとんど見えません。" },
+        { max: 8, title: "軽度の時間迷子", msg: "少しだけ砂がこぼれていますが、まだ取り返しはつきますよ。今なら余裕です。" },
+        { max: 12, title: "日常虚無の住人", msg: "ふむ、小さな虚無が積もっていますね。気づけば山になる前に、そっと払っておきましょう。" },
+        { max: 16, title: "ゆるい虚無の旅人", msg: "あなたの時間、ちょっとずつ蒸発してますね。まあ、人間らしくて嫌いじゃないですよ。" },
+        { max: 20, title: "静かに砂を落とす者", msg: "砂時計の砂が、あなたの隙間から静かに漏れています。まだ笑って済む範囲です。" },
+        { max: 24, title: "虚無の習慣者", msg: "おや、虚無のパターンが安定してきましたね。これはもう\"習慣\"と言っていいでしょう。" },
+        { max: 28, title: "時間漏洩の常連", msg: "あなたの人生、ところどころ砂が抜け落ちています。補修工事をおすすめします。" },
+        { max: 32, title: "虚無の熟練工", msg: "ここまで虚無を積み上げるとは…なかなかの腕前ですね。砂時計の精も感心しています。" },
+        { max: 36, title: "虚無の美学者", msg: "あなたの時間の使い方、もはや芸術の域です。虚無の美学すら感じますよ。" },
+        { max: 40, title: "砂時計の異常値", msg: "砂が落ちる音が聞こえます。あなたの時間、静かに虚空へ吸い込まれていますね。" },
+        { max: 44, title: "虚無の達人", msg: "これは見事な虚無の積み上げ。あなたの人生の軌跡、砂の線で描けそうです。" },
+        { max: 48, title: "時間蒸発の名匠", msg: "あなたの時間、ほとんど\"蒸発\"していますね。砂時計の精も少し心配になってきました。" },
+        { max: 52, title: "浪費の王族", msg: "ここまで虚無を捧げるとは…王族のような贅沢な浪費の歴史ですね（皮肉です）。" },
+        { max: 56, title: "虚無の深淵歩行者", msg: "あなたの砂時計、ほぼ空洞です。過去の時間は二度と戻りませんよ、念のため。" },
+        { max: 60, title: "虚無の化身", msg: "虚無の積み上げ方が尋常ではありません。あなたの人生、砂が虚空に吸われ続けています。" },
+        { max: 64, title: "無", msg: "あなたの砂時計は、完全に沈黙しました。砂が落ちる音すら消え、ただ\"無\"だけが残っています。" }
+    ];
+
     const LAB_CONFIG = {
         title: "人生損失ラボ - 虚無への問い",
         benzPrice: 15000000,
-        hourlyWage: 1200,
-        messages: [
-            "ふむ、これまで虚無を積み上げてきた達人ですね。あなたの人生の足跡、砂時計の砂が虚空に消えています。",
-            "時間は金なりと言いますが、今日までドブに捨て続けてきたようですよ。自覚はありますか？",
-            "今日までの損失額で、高級車が買えたはずですね。失った時間は二度と戻りません。",
-            "過去に捧げた膨大な虚無。それはそれで、王族のような贅沢な浪費の歴史ですね（皮肉です）。",
-            "あなたの砂時計、過去に溜まった虚無の重みで割れそうですよ。今のうちに現実を見なさい。",
-            "積み上げた損失を可視化して、少しは後悔の念が湧きましたか？ 反省しなさい。"
-        ]
+        hourlyWage: 1200
     };
 
     // --- DOM Elements ---
@@ -239,11 +250,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Character Message
-        const msg = LAB_CONFIG.messages[Math.floor(Math.random() * LAB_CONFIG.messages.length)];
+        // Character Message - score-based tier
+        const tier = SPIRIT_TIERS.find(t => totalScore <= t.max) || SPIRIT_TIERS[SPIRIT_TIERS.length - 1];
         spiritMessage.style.opacity = 0;
         setTimeout(() => {
-            spiritMessage.textContent = msg;
+            spiritMessage.innerHTML = `<strong>称号：${tier.title}</strong><br>「${tier.msg}」`;
             spiritMessage.style.opacity = 1;
         }, 300);
     };
