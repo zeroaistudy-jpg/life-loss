@@ -59,6 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const ageSlider = document.getElementById('age-slider');
     const ageSecretBtn = document.getElementById('age-secret-btn');
     const ageUnit = document.getElementById('age-unit');
+    const ageSpinUp = document.getElementById('age-spin-up');
+    const ageSpinDown = document.getElementById('age-spin-down');
+    const ageSpinBtns = document.getElementById('age-spin-btns');
     const spiritMessage = document.getElementById('spirit-message');
 
     const shareBtn = document.getElementById('share-btn');
@@ -121,6 +124,31 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Custom spin buttons
+        ageSpinUp.addEventListener('click', () => {
+            if (!ageInput.disabled) {
+                const max = parseInt(ageInput.max) || 130;
+                let val = parseInt(ageInput.value) || 0;
+                if (val < max) {
+                    ageInput.value = val + 1;
+                    ageSlider.value = ageInput.value;
+                    updateSliderProgress();
+                }
+            }
+        });
+
+        ageSpinDown.addEventListener('click', () => {
+            if (!ageInput.disabled) {
+                const min = parseInt(ageInput.min) || 1;
+                let val = parseInt(ageInput.value) || 0;
+                if (val > min) {
+                    ageInput.value = val - 1;
+                    ageSlider.value = ageInput.value;
+                    updateSliderProgress();
+                }
+            }
+        });
+
         ageSecretBtn.addEventListener('click', () => {
             const isActive = ageSecretBtn.classList.toggle('active');
             if (isActive) {
@@ -132,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ageSlider.disabled = true;
                 ageSlider.classList.add('secret-active');
                 ageUnit.style.display = 'none';
+                ageSpinBtns.style.display = 'none';
             } else {
                 ageInput.type = 'number';
                 // Restore previous numeric value
@@ -141,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ageSlider.value = ageInput.value;
                 ageSlider.classList.remove('secret-active');
                 ageUnit.style.display = 'inline';
+                ageSpinBtns.style.display = 'flex';
                 updateSliderProgress();
             }
         });

@@ -354,12 +354,9 @@ header {
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid #fff;
     border-radius: 4px;
-    padding: 5px 10px;
-    padding-right: 2px;
-    /* Minimal padding so arrows can reach the edge */
+    padding: 5px 0 5px 10px;
     flex: 1;
     position: relative;
-    /* For absolute unit positioning */
 }
 
 .age-input-box-wrapper input {
@@ -370,8 +367,7 @@ header {
     font-size: 1.4rem;
     font-family: 'Orbitron', sans-serif;
     text-align: right;
-    padding-right: 48px;
-    /* Room for '歳' andArrows */
+    padding-right: 5px;
     margin: 0;
 }
 
@@ -379,21 +375,49 @@ header {
     outline: none;
 }
 
-/* Ensure numeric spin buttons are at the far right */
+/* Hide native spin buttons */
 .age-input-box-wrapper input::-webkit-inner-spin-button,
 .age-input-box-wrapper input::-webkit-outer-spin-button {
-    opacity: 1;
-    cursor: pointer;
+    -webkit-appearance: none;
     margin: 0;
+    display: none;
+}
+
+.age-input-box-wrapper input[type=number] {
+    -moz-appearance: textfield;
 }
 
 .age-input-box-wrapper .unit {
-    position: absolute;
-    right: 22px;
-    /* Positioned just to the left of native spin arrows at the edge */
     color: #fff;
     font-size: 1.1rem;
-    pointer-events: none;
+    white-space: nowrap;
+    padding: 0 4px;
+    flex-shrink: 0;
+}
+
+/* Custom spin buttons - to the right of 歳 */
+.age-spin-btns {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    margin-left: 2px;
+    margin-right: 4px;
+}
+
+.age-spin-btns button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 0.5rem;
+    cursor: pointer;
+    padding: 0 6px;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+}
+
+.age-spin-btns button:hover {
+    opacity: 1;
 }
 
 .age-secret-btn {
