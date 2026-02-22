@@ -6,27 +6,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Configuration ---
     const QUESTIONS = [
-        "さっきまで何をしていたか忘れる",
-        "「明日から本気出す」を実行できたことがない",
-        "惰性でゲームを続けてしまう",
-        "風呂に入るまでに無駄に時間がかかる",
-        "何度も同じ場所をウロウロする",
-        "暇になるとすぐスマホを開く",
-        "セール品を見ているだけで時間が溶ける",
-        "気づいたら時間が経っていて驚く",
-        "やることリストを作るだけで満足する",
-        "買うべきかを悩んでいるうちに、商品が値上がりして後悔する",
-        "生活リズムがズレて戻すのに時間がかかる",
-        "片付けを始めると何故か漫画を読み始める",
-        "外に出る準備をしたけど、疲れてやめる",
-        "買う気がないのにレビューだけ読む",
-        "休憩のつもりが長時間になる",
-        "選択肢が多いほど選べなくなる",
-        "「まずは形から」で道具だけが増える",
-        "物を取りに行ったのに手ぶらで戻ってくる",
-        "自分のやる気スイッチが壊れてる気がする",
-        "今この時間も虚無だと思ってる"
+        { text: "さっきまで何をしていたか忘れる", points: 4 },
+        { text: "「明日から本気出す」を実行できたことがない", points: 5 },
+        { text: "惰性でゲームを続けてしまう", points: 2 },
+        { text: "風呂に入るまでに無駄に時間がかかる", points: 2 },
+        { text: "何度も同じ場所をウロウロする", points: 2 },
+        { text: "暇になるとすぐスマホを開く", points: 2 },
+        { text: "セール品を見ているだけで時間が溶ける", points: 3 },
+        { text: "気づいたら時間が経っていて驚く", points: 3 },
+        { text: "やることリストを作るだけで満足する", points: 4 },
+        { text: "買うべきかを悩んでいるうちに、商品が値上がりして後悔する", points: 3 },
+        { text: "生活リズムがズレて戻すのに時間がかかる", points: 4 },
+        { text: "片付けを始めると何故か漫画を読み始める", points: 4 },
+        { text: "外に出る準備をしたけど、疲れてやめる", points: 3 },
+        { text: "買う気がないのにレビューだけ読む", points: 2 },
+        { text: "休憩のつもりが長時間になる", points: 2 },
+        { text: "選択肢が多いほど選べなくなる", points: 4 },
+        { text: "「まずは形から」で道具だけが増える", points: 2 },
+        { text: "物を取りに行ったのに手ぶらで戻ってくる", points: 2 },
+        { text: "自分のやる気スイッチが壊れてる気がする", points: 5 },
+        { text: "今この時間も虚無だと思ってる", points: 5 }
     ];
+
+    const MAX_SCORE = QUESTIONS.reduce((sum, q) => sum + q.points, 0); // 62
 
     const LAB_CONFIG = {
         title: "人生損失ラボ - 虚無への問い",
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const item = document.createElement('div');
             item.className = 'question-item';
             item.innerHTML = `
-                <p class="question-text">${index + 1}. ${q}</p>
+                <p class="question-text">${index + 1}. ${q.text}</p>
                 <div class="options-group">
                     <button class="option-btn" data-index="${index}" data-value="1">はい</button>
                     <button class="option-btn" data-index="${index}" data-value="0">どちらでもない</button>
@@ -208,14 +210,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const totalScore = Math.max(0, answers.reduce((a, b) => a + b, 0));
+        // Calculate weighted score
+        const totalScore = Math.max(0, answers.reduce((sum, val, i) => {
+            if (val === 1) return sum + QUESTIONS[i].points;
+            return sum;
+        }, 0));
         const dailyLossHours = totalScore * 0.5;
         const annualLossHours = dailyLossHours * 365;
         const currentTotalLossHours = Math.floor(annualLossHours * age);
         const currentTotalLossDays = (currentTotalLossHours / 24).toFixed(1);
         const moneyLoss = Math.floor(currentTotalLossHours * 8 * LAB_CONFIG.hourlyWage);
         const benzCount = (moneyLoss / LAB_CONFIG.benzPrice).toFixed(2);
-        const nihilityRate = ((totalScore / 20) * 100).toFixed(0);
+        const nihilityRate = ((totalScore / MAX_SCORE) * 100).toFixed(0);
 
         // UI Updates
         totalScoreText.textContent = totalScore;
