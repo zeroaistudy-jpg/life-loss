@@ -45,8 +45,14 @@
 
                     <div class="input-group">
                         <label for="age">現在の年齢</label>
-                        <input type="number" id="age" placeholder="例: 25" min="1" max="150">
-                        <span class="unit">歳</span>
+                        <div class="age-input-row">
+                            <input type="number" id="age" value="20" min="1" max="100">
+                            <span class="unit">歳</span>
+                            <label class="secret-label">
+                                <input type="checkbox" id="age-secret"> 秘密
+                            </label>
+                        </div>
+                        <input type="range" id="age-slider" min="1" max="100" value="20" class="age-slider">
                     </div>
 
                     <div class="quiz-container">
@@ -63,29 +69,36 @@
                 <div id="result-area" class="hidden">
                     <div class="result-grid">
                         <div class="result-card">
-                            <h3>総合虚無スコア / 人生の虚無率</h3>
+                            <h3>総合虚無スコア</h3>
                             <div class="score-display">
                                 <span class="value" id="total-score">-</span>
                                 <span class="unit">pt</span>
-                                <span class="separator">/</span>
+                            </div>
+                        </div>
+                        <div class="result-card highlight-card">
+                            <h3>人生の虚無率</h3>
+                            <div class="score-display">
                                 <span class="value highlight" id="nihility-rate">-</span>
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="result-card">
-                            <h3>推定日別損失</h3>
+                            <h3>一日当たりの損失時間</h3>
                             <p class="value" id="daily-loss">-</p>
                             <span class="unit">時間 / 日</span>
                         </div>
                         <div class="result-card">
                             <h3>過去の累計損失時間</h3>
-                            <p class="value highlight" id="total-loss-time">-</p>
+                            <div class="multi-value">
+                                <p class="value highlight" id="total-loss-time">-</p>
+                                <p class="sub-value" id="total-loss-days">-</p>
+                            </div>
                             <span class="unit">（今日まで）</span>
                         </div>
                         <div class="result-card" id="money-loss-card">
                             <h3>過去の累計損失金額</h3>
                             <p class="value" id="total-loss-money">-</p>
-                            <span class="unit">（時給換算）</span>
+                            <span class="unit">（時給1,200円換算）</span>
                         </div>
                     </div>
 

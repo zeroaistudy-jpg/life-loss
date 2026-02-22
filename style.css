@@ -190,11 +190,12 @@ header {
 }
 
 .quiz-meta-info {
-    font-size: 0.8rem;
+    font-size: 1.1rem;
     color: var(--accent-secondary);
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     text-align: center;
     font-weight: bold;
+    text-shadow: 0 0 10px rgba(79, 70, 229, 0.4);
 }
 
 .question-item {
@@ -330,10 +331,11 @@ header {
     }
 }
 
+/* Result Cards */
 .result-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.2rem;
     margin-bottom: 2rem;
 }
 
@@ -343,6 +345,9 @@ header {
     border-radius: 12px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .score-display {
@@ -350,12 +355,6 @@ header {
     justify-content: center;
     align-items: baseline;
     gap: 5px;
-}
-
-.separator {
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    margin: 0 5px;
 }
 
 .result-card h3 {
@@ -374,6 +373,19 @@ header {
 .result-card .value.highlight {
     color: #fca5a5;
     text-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+.multi-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.sub-value {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-family: 'Orbitron', sans-serif;
 }
 
 /* Share & Reset */

@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const LAB_CONFIG = {
         title: "人生損失ラボ - 虚無への問い",
         benzPrice: 15000000,
-        hourlyWage: 1500,
+        hourlyWage: 1200,
         messages: [
             "ふむ、これまで虚無を積み上げてきた達人ですね。あなたの人生の足跡、砂時計の砂が虚空に消えています。",
             "時間は金なりと言いますが、今日までドブに捨て続けてきたようですよ。自覚はありますか？",
@@ -50,11 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputForm = document.querySelector('.input-form');
 
     const totalScoreText = document.getElementById('total-score');
+    const nihilityRateText = document.getElementById('nihility-rate');
     const dailyLossText = document.getElementById('daily-loss');
     const totalLossTimeText = document.getElementById('total-loss-time');
     const totalLossMoneyText = document.getElementById('total-loss-money');
     const benzCountText = document.getElementById('benz-count');
-    const nihilityRateText = document.getElementById('nihility-rate');
+    const totalLossDaysText = document.getElementById('total-loss-days');
+    const ageSlider = document.getElementById('age-slider');
+    const ageSecret = document.getElementById('age-secret');
     const spiritMessage = document.getElementById('spirit-message');
 
     const shareBtn = document.getElementById('share-btn');
@@ -94,6 +97,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.target.classList.add('active');
             }
         });
+
+        // Age Syncing logic
+        ageInput.addEventListener('input', () => {
+            if (!ageSecret.checked) {
+                ageSlider.value = ageInput.value;
+            }
+        });
+
+        ageSlider.addEventListener('input', () => {
+            if (!ageSecret.checked) {
+                ageInput.value = ageSlider.value;
+            }
+        });
+
+        ageSecret.addEventListener('change', () => {
+            if (ageSecret.checked) {
+                ageInput.disabled = true;
+                ageSlider.disabled = true;
+                ageInput.dataset.prevVal = ageInput.value;
+                ageInput.value = 33;
+                ageSlider.value = 33;
+            } else {
+                ageInput.disabled = false;
+                ageSlider.disabled = false;
+                ageInput.value = ageInput.dataset.prevVal || 20;
+                ageSlider.value = ageInput.value;
+            }
+        });
     };
 
     const formatTime = (h) => {
@@ -127,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dailyLossHours = totalScore * 0.5;
         const annualLossHours = dailyLossHours * 365;
         const currentTotalLossHours = Math.floor(annualLossHours * age);
+        const currentTotalLossDays = (currentTotalLossHours / 24).toFixed(1);
         const moneyLoss = Math.floor(currentTotalLossHours * 8 * LAB_CONFIG.hourlyWage);
         const benzCount = (moneyLoss / LAB_CONFIG.benzPrice).toFixed(2);
         const nihilityRate = ((totalScore / 20) * 100).toFixed(0);
@@ -136,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nihilityRateText.textContent = nihilityRate;
         dailyLossText.textContent = dailyLossHours.toFixed(1);
         totalLossTimeText.textContent = formatTime(currentTotalLossHours);
+        totalLossDaysText.textContent = `（約 ${parseFloat(currentTotalLossDays).toLocaleString()} 日分）`;
         totalLossMoneyText.textContent = formatMoney(moneyLoss);
         benzCountText.textContent = benzCount;
 
