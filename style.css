@@ -354,10 +354,13 @@ header {
     border: 2px solid #fff;
     border-radius: 4px;
     padding: 5px 10px;
+    flex: 1;
+    /* Expand to fill space */
 }
 
 .age-input-box-wrapper input {
-    width: 60px;
+    width: 100%;
+    /* Fill the wrapper */
     background: transparent;
     border: none;
     color: #fff;
@@ -428,8 +431,24 @@ header {
 .age-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 0;
-    height: 0;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    margin-top: -2px;
+    /* Center relative to track height */
+}
+
+.age-bar::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border: none;
 }
 
 .age-bar:disabled {
@@ -546,13 +565,9 @@ footer {
     color: var(--text-muted);
 }
 
-/* Mobile Adjustments */
-@media (min-width: 480px) {
-    .result-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
+/* Mobile & Grid Adjustments */
+@media (max-width: 480px) {
     .result-grid .result-card:nth-child(2) {
-        grid-column: span 2;
+        grid-column: span 1;
     }
 }
