@@ -6,7 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Configuration ---
     const QUESTIONS = [
-        { text: "さっきまで何をしていたか忘れる", points: 4 },
+        { text: "たまにさっきまで何をしていたか忘れる", points: 4 },
         { text: "「明日から本気出す」を実行できたことがない", points: 5 },
         { text: "惰性でゲームを続けてしまう", points: 2 },
         { text: "風呂に入るまでに無駄に時間がかかる", points: 2 },
