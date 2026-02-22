@@ -294,7 +294,8 @@ header {
     border-left: 4px solid #f87171;
     padding: 1.2rem;
     border-radius: 10px;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
+    /* Handled by grid gap */
 }
 
 .highlight-card h3 {
@@ -361,15 +362,15 @@ header {
 
 .age-input-box-wrapper input {
     width: 100%;
-    /* Fill the wrapper */
     background: transparent;
     border: none;
     color: #fff;
     font-size: 1.4rem;
     font-family: 'Orbitron', sans-serif;
     text-align: right;
-    padding-right: 55px;
-    /* Room for unit and arrows */
+    padding-right: 50px;
+    /* Room for arrows and unit */
+    margin: 0;
 }
 
 .age-input-box-wrapper input:focus {
@@ -385,8 +386,8 @@ header {
 
 .age-input-box-wrapper .unit {
     position: absolute;
-    right: 35px;
-    /* To the left of the arrows */
+    right: 22px;
+    /* Positioned just to the left of native spin arrows */
     color: #fff;
     font-size: 1.1rem;
     pointer-events: none;
