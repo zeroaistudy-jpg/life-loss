@@ -333,7 +333,75 @@ header {
 
 /* Results Grid Fix */
 
-/* Results Grid Fix */
+/* Age UI Step 2: Row Layout */
+.age-row-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.age-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.age-input-box-wrapper {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #fff;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+.age-input-box-wrapper input {
+    width: 60px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+}
+
+.age-input-box-wrapper input:focus {
+    outline: none;
+}
+
+.age-input-box-wrapper .unit {
+    position: static;
+    /* Override previous absolute */
+    color: #fff;
+    font-size: 1.1rem;
+    pointer-events: auto;
+}
+
+.age-secret-btn {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.age-secret-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+.age-secret-btn.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: #fff;
+}
+
+/* Results Grid Fix: Side-by-Side */
 .result-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -341,20 +409,18 @@ header {
     margin-bottom: 2rem;
 }
 
-.score-row-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-}
-
 @media (min-width: 600px) {
-    .score-row-wrapper {
+    .result-grid {
         grid-template-columns: 1fr 1fr;
-        grid-column: 1 / -1;
+    }
+
+    /* Force first two cards (Score & Rate) to be side-by-side and same width */
+    .result-grid .result-card:nth-child(1),
+    .result-grid .result-card:nth-child(2) {
+        grid-column: span 1;
     }
 }
 
-/* Result Cards */
 .result-card {
     background: rgba(0, 0, 0, 0.2);
     padding: 1.2rem;

@@ -56,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalLossMoneyText = document.getElementById('total-loss-money');
     const benzCountText = document.getElementById('benz-count');
     const totalLossDaysText = document.getElementById('total-loss-days');
+    const ageSecretBtn = document.getElementById('age-secret-btn');
+    const ageUnit = document.getElementById('age-unit');
     const spiritMessage = document.getElementById('spirit-message');
 
     const shareBtn = document.getElementById('share-btn');
@@ -96,6 +98,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        ageSecretBtn.addEventListener('click', () => {
+            const isActive = ageSecretBtn.classList.toggle('active');
+            if (isActive) {
+                // Save current numeric value
+                ageInput.dataset.prevVal = ageInput.value;
+                ageInput.type = 'text';
+                ageInput.value = '秘密';
+                ageInput.disabled = true;
+                ageUnit.style.display = 'none';
+            } else {
+                ageInput.type = 'number';
+                // Restore previous numeric value
+                ageInput.value = ageInput.dataset.prevVal || 20;
+                ageInput.disabled = false;
+                ageUnit.style.display = 'inline';
+            }
+        });
     };
 
     const formatTime = (h) => {
@@ -119,8 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Core Logic ---
 
     const calculate = () => {
-        const age = parseFloat(ageInput.value);
-        if (isNaN(age) || age <= 0) {
+        let age = parseFloat(ageInput.value);
+        if (ageSecretBtn.classList.contains('active')) {
+            age = 33;
+        } else if (isNaN(age) || age <= 0) {
             alert("年齢を正しく入力してください。");
             return;
         }
@@ -162,7 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const reset = () => {
         answers.fill(0);
         document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
+        ageInput.type = 'number';
         ageInput.value = '20';
+        ageInput.disabled = false;
+        ageSecretBtn.classList.remove('active');
+        ageUnit.style.display = 'inline';
         inputForm.classList.remove('hidden');
         resultArea.classList.add('hidden');
         spiritMessage.textContent = "「次は何を無駄にしているか調べますか？ お手柔らかに。」";
