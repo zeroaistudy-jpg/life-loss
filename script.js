@@ -56,9 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalLossMoneyText = document.getElementById('total-loss-money');
     const benzCountText = document.getElementById('benz-count');
     const totalLossDaysText = document.getElementById('total-loss-days');
-    const ageSlider = document.getElementById('age-slider');
-    const ageSecretBtn = document.getElementById('age-secret-btn');
-    const ageUnit = document.getElementById('age-unit');
     const spiritMessage = document.getElementById('spirit-message');
 
     const shareBtn = document.getElementById('share-btn');
@@ -99,55 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        ageInput.addEventListener('input', () => {
-            if (!ageInput.disabled) {
-                ageSlider.value = ageInput.value;
-                updateSliderProgress();
-            }
-        });
-
-        ageSlider.addEventListener('input', () => {
-            if (!ageInput.disabled) {
-                ageInput.value = ageSlider.value;
-                updateSliderProgress();
-            }
-        });
-
-        const updateSliderProgress = () => {
-            const val = ageSlider.value;
-            const min = ageSlider.min || 0;
-            const max = ageSlider.max || 100;
-            const percentage = ((val - min) / (max - min)) * 100;
-            ageSlider.style.setProperty('--progress', `${percentage}%`);
-        };
-
-        ageSecretBtn.addEventListener('click', () => {
-            const isActive = ageSecretBtn.classList.toggle('active');
-            if (isActive) {
-                // Save current numeric value before switching to text
-                ageInput.dataset.prevVal = ageInput.value;
-                ageInput.type = 'text';
-                ageInput.value = '秘密';
-                ageInput.disabled = true;
-                ageSlider.disabled = true;
-                ageSlider.classList.add('secret-active');
-                ageUnit.style.display = 'none';
-            } else {
-                ageSecretBtn.textContent = '秘密にする';
-                ageInput.type = 'number';
-                // Restore the previous value
-                ageInput.value = ageInput.dataset.prevVal || 20;
-                ageInput.disabled = false;
-                ageSlider.disabled = false;
-                ageSlider.classList.remove('secret-active');
-                ageSlider.value = ageInput.value;
-                ageUnit.style.display = 'inline';
-                updateSliderProgress();
-            }
-        });
-
-        // Initialize progress
-        updateSliderProgress();
     };
 
     const formatTime = (h) => {
@@ -171,10 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Core Logic ---
 
     const calculate = () => {
-        let age = parseFloat(ageInput.value);
-        if (ageSecretBtn.classList.contains('active')) {
-            age = 33;
-        } else if (isNaN(age) || age <= 0) {
+        const age = parseFloat(ageInput.value);
+        if (isNaN(age) || age <= 0) {
             alert("年齢を正しく入力してください。");
             return;
         }
@@ -216,15 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const reset = () => {
         answers.fill(0);
         document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
-        ageInput.type = 'number';
         ageInput.value = '20';
-        ageSlider.value = '20';
-        ageSlider.disabled = false;
-        ageSlider.classList.remove('secret-active');
-        ageInput.disabled = false;
-        ageSecretBtn.classList.remove('active');
-        ageSecretBtn.textContent = '秘密にする';
-        ageUnit.style.display = 'inline';
         inputForm.classList.remove('hidden');
         resultArea.classList.add('hidden');
         spiritMessage.textContent = "「次は何を無駄にしているか調べますか？ お手柔らかに。」";
