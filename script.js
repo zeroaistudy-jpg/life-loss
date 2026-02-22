@@ -99,23 +99,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Age Syncing logic
         ageInput.addEventListener('input', () => {
-            if (!ageSecret.checked) {
+            if (!ageInput.disabled) {
                 ageSlider.value = ageInput.value;
+                updateSliderProgress();
             }
         });
 
         ageSlider.addEventListener('input', () => {
             if (!ageInput.disabled) {
                 ageInput.value = ageSlider.value;
+                updateSliderProgress();
             }
         });
+
+        const updateSliderProgress = () => {
+            const val = ageSlider.value;
+            const min = ageSlider.min || 0;
+            const max = ageSlider.max || 100;
+            const percentage = ((val - min) / (max - min)) * 100;
+            ageSlider.style.setProperty('--progress', `${percentage}%`);
+        };
 
         ageSecretBtn.addEventListener('click', () => {
             const isActive = ageSecretBtn.classList.toggle('active');
             if (isActive) {
-                ageSecretBtn.textContent = '秘密中';
+                // Save current numeric value before switching to text
                 ageInput.dataset.prevVal = ageInput.value;
                 ageInput.type = 'text';
                 ageInput.value = '秘密';
@@ -126,14 +135,19 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 ageSecretBtn.textContent = '秘密にする';
                 ageInput.type = 'number';
+                // Restore the previous value
                 ageInput.value = ageInput.dataset.prevVal || 20;
                 ageInput.disabled = false;
                 ageSlider.disabled = false;
                 ageSlider.classList.remove('secret-active');
                 ageSlider.value = ageInput.value;
                 ageUnit.style.display = 'inline';
+                updateSliderProgress();
             }
         });
+
+        // Initialize progress
+        updateSliderProgress();
     };
 
     const formatTime = (h) => {

@@ -403,8 +403,17 @@ header {
 
 .age-slider.secret-active {
     accent-color: transparent;
-    opacity: 0.3;
-    pointer-events: none;
+    background: #e0e0e0;
+    border-color: #999;
+}
+
+/* Specific Progress Bar Styling for standard view */
+.age-slider::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #000 0%, #000 var(--progress, 20%), #fff var(--progress, 20%));
+}
+
+.age-slider.secret-active::-webkit-slider-runnable-track {
+    background: #e0e0e0;
 }
 
 /* Results Grid Fix */
@@ -415,20 +424,16 @@ header {
     margin-bottom: 2rem;
 }
 
+.score-row-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+}
+
 @media (min-width: 600px) {
-    .result-grid {
+    .score-row-wrapper {
         grid-template-columns: 1fr 1fr;
-    }
-
-    /* Ensure the first two cards (Score & Rate) are side-by-side */
-    .result-grid .result-card:nth-child(1),
-    .result-grid .result-card:nth-child(2) {
-        grid-column: span 1;
-    }
-
-    /* Other cards can stack or occupy full width as needed */
-    .result-grid .result-card:nth-child(n+3) {
-        grid-column: span 1;
+        grid-column: 1 / -1;
     }
 }
 
@@ -438,7 +443,7 @@ header {
     padding: 1.2rem;
     border-radius: 12px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: center;

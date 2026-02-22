@@ -44,16 +44,18 @@
                     <h2 id="lab-title">人生損失ラボ - 虚無への問い</h2>
 
                     <div class="input-section">
-                        <div class="input-group">
-                            <label for="age">現在の年齢</label>
-                            <div class="age-control-wrapper">
-                                <div class="age-input-row">
+                        <div class="age-ui-outer">
+                            <div class="age-row-top">
+                                <label class="age-label-text">年齢</label>
+                                <div class="age-input-box">
                                     <input type="number" id="age" value="20" min="1" max="100">
                                     <span class="unit" id="age-unit">歳</span>
                                 </div>
-                                <button id="age-secret-btn" class="secret-btn">秘密にする</button>
+                                <button id="age-secret-btn" class="age-secret-box">秘密</button>
                             </div>
-                            <input type="range" id="age-slider" min="1" max="100" value="20" class="age-slider">
+                            <div class="age-row-bottom">
+                                <input type="range" id="age-slider" min="1" max="100" value="20" class="age-slider">
+                            </div>
                         </div>
                     </div>
 
@@ -70,18 +72,20 @@
 
                 <div id="result-area" class="hidden">
                     <div class="result-grid">
-                        <div class="result-card">
-                            <h3>総合虚無スコア</h3>
-                            <div class="score-display">
-                                <span class="value" id="total-score">-</span>
-                                <span class="unit">pt</span>
+                        <div class="score-row-wrapper">
+                            <div class="result-card">
+                                <h3>総合虚無スコア</h3>
+                                <div class="score-display">
+                                    <span class="value" id="total-score">-</span>
+                                    <span class="unit">pt</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="result-card highlight-card">
-                            <h3>人生の虚無率</h3>
-                            <div class="score-display">
-                                <span class="value highlight" id="nihility-rate">-</span>
-                                <span class="unit">%</span>
+                            <div class="result-card highlight-card">
+                                <h3>人生の虚無率</h3>
+                                <div class="score-display">
+                                    <span class="value highlight" id="nihility-rate">-</span>
+                                    <span class="unit">%</span>
+                                </div>
                             </div>
                         </div>
                         <div class="result-card">
