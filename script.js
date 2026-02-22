@@ -57,7 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const benzCountText = document.getElementById('benz-count');
     const totalLossDaysText = document.getElementById('total-loss-days');
     const ageSlider = document.getElementById('age-slider');
-    const ageSecret = document.getElementById('age-secret');
+    const ageSecretBtn = document.getElementById('age-secret-btn');
+    const ageUnit = document.getElementById('age-unit');
     const spiritMessage = document.getElementById('spirit-message');
 
     const shareBtn = document.getElementById('share-btn');
@@ -106,23 +107,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         ageSlider.addEventListener('input', () => {
-            if (!ageSecret.checked) {
+            if (!ageInput.disabled) {
                 ageInput.value = ageSlider.value;
             }
         });
 
-        ageSecret.addEventListener('change', () => {
-            if (ageSecret.checked) {
+        ageSecretBtn.addEventListener('click', () => {
+            const isActive = ageSecretBtn.classList.toggle('active');
+            if (isActive) {
+                ageSecretBtn.textContent = '秘密中';
+                ageInput.dataset.prevVal = ageInput.value;
+                ageInput.type = 'text';
+                ageInput.value = '秘密';
                 ageInput.disabled = true;
                 ageSlider.disabled = true;
-                ageInput.dataset.prevVal = ageInput.value;
-                ageInput.value = 33;
-                ageSlider.value = 33;
+                ageSlider.classList.add('secret-active');
+                ageUnit.style.display = 'none';
             } else {
+                ageSecretBtn.textContent = '秘密にする';
+                ageInput.type = 'number';
+                ageInput.value = ageInput.dataset.prevVal || 20;
                 ageInput.disabled = false;
                 ageSlider.disabled = false;
-                ageInput.value = ageInput.dataset.prevVal || 20;
+                ageSlider.classList.remove('secret-active');
                 ageSlider.value = ageInput.value;
+                ageUnit.style.display = 'inline';
             }
         });
     };
@@ -148,8 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Core Logic ---
 
     const calculate = () => {
-        const age = parseFloat(ageInput.value);
-        if (isNaN(age) || age <= 0) {
+        let age = parseFloat(ageInput.value);
+        if (ageSecretBtn.classList.contains('active')) {
+            age = 33;
+        } else if (isNaN(age) || age <= 0) {
             alert("年齢を正しく入力してください。");
             return;
         }
@@ -191,7 +202,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const reset = () => {
         answers.fill(0);
         document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
-        ageInput.value = '';
+        ageInput.type = 'number';
+        ageInput.value = '20';
+        ageSlider.value = '20';
+        ageSlider.disabled = false;
+        ageSlider.classList.remove('secret-active');
+        ageInput.disabled = false;
+        ageSecretBtn.classList.remove('active');
+        ageSecretBtn.textContent = '秘密にする';
+        ageUnit.style.display = 'inline';
         inputForm.classList.remove('hidden');
         resultArea.classList.add('hidden');
         spiritMessage.textContent = "「次は何を無駄にしているか調べますか？ お手柔らかに。」";

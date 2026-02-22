@@ -331,7 +331,83 @@ header {
     }
 }
 
-/* Result Cards */
+/* Age Controls */
+.age-control-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.age-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.age-input-row input {
+    width: 60px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.age-input-row input:focus {
+    outline: none;
+}
+
+/* Hide spin buttons */
+.age-input-row input::-webkit-inner-spin-button,
+.age-input-row input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.secret-btn {
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.secret-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.secret-btn.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+.age-slider {
+    width: 100%;
+    margin: 10px 0;
+    accent-color: var(--accent-primary);
+    cursor: pointer;
+}
+
+.age-slider.secret-active {
+    accent-color: transparent;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Results Grid Fix */
 .result-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -339,6 +415,24 @@ header {
     margin-bottom: 2rem;
 }
 
+@media (min-width: 600px) {
+    .result-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Ensure the first two cards (Score & Rate) are side-by-side */
+    .result-grid .result-card:nth-child(1),
+    .result-grid .result-card:nth-child(2) {
+        grid-column: span 1;
+    }
+
+    /* Other cards can stack or occupy full width as needed */
+    .result-grid .result-card:nth-child(n+3) {
+        grid-column: span 1;
+    }
+}
+
+/* Result Cards */
 .result-card {
     background: rgba(0, 0, 0, 0.2);
     padding: 1.2rem;

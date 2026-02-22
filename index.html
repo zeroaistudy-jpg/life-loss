@@ -43,16 +43,18 @@
                 <div class="input-form">
                     <h2 id="lab-title">人生損失ラボ - 虚無への問い</h2>
 
-                    <div class="input-group">
-                        <label for="age">現在の年齢</label>
-                        <div class="age-input-row">
-                            <input type="number" id="age" value="20" min="1" max="100">
-                            <span class="unit">歳</span>
-                            <label class="secret-label">
-                                <input type="checkbox" id="age-secret"> 秘密
-                            </label>
+                    <div class="input-section">
+                        <div class="input-group">
+                            <label for="age">現在の年齢</label>
+                            <div class="age-control-wrapper">
+                                <div class="age-input-row">
+                                    <input type="number" id="age" value="20" min="1" max="100">
+                                    <span class="unit" id="age-unit">歳</span>
+                                </div>
+                                <button id="age-secret-btn" class="secret-btn">秘密にする</button>
+                            </div>
+                            <input type="range" id="age-slider" min="1" max="100" value="20" class="age-slider">
                         </div>
-                        <input type="range" id="age-slider" min="1" max="100" value="20" class="age-slider">
                     </div>
 
                     <div class="quiz-container">
