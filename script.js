@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { text: "惰性でゲームを続けてしまう", points: 2 },
         { text: "風呂に入るまでに無駄に時間がかかる", points: 2 },
         { text: "何度も同じ場所をウロウロする", points: 2 },
-        { text: "暇になるとすぐスマホを開く", points: 2 },
+        { text: "暇になるとすぐスマホを開く", points: 3 },
         { text: "セール品を見ているだけで時間が溶ける", points: 3 },
         { text: "気づいたら時間が経っていて驚く", points: 3 },
         { text: "やることリストを作るだけで満足する", points: 4 },
