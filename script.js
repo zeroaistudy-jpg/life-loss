@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalLossMoneyText = document.getElementById('total-loss-money');
     const benzCountText = document.getElementById('benz-count');
     const totalLossDaysText = document.getElementById('total-loss-days');
+    const ageSlider = document.getElementById('age-slider');
     const ageSecretBtn = document.getElementById('age-secret-btn');
     const ageUnit = document.getElementById('age-unit');
     const spiritMessage = document.getElementById('spirit-message');
@@ -98,6 +99,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        const updateSliderProgress = () => {
+            const val = ageSlider.value;
+            const min = ageSlider.min || 1;
+            const max = ageSlider.max || 100;
+            const percentage = ((val - min) / (max - min)) * 100;
+            ageSlider.style.setProperty('--progress', `${percentage}%`);
+        };
+
+        ageInput.addEventListener('input', () => {
+            if (!ageInput.disabled) {
+                ageSlider.value = ageInput.value;
+                updateSliderProgress();
+            }
+        });
+
+        ageSlider.addEventListener('input', () => {
+            if (!ageSlider.disabled) {
+                ageInput.value = ageSlider.value;
+                updateSliderProgress();
+            }
+        });
+
         ageSecretBtn.addEventListener('click', () => {
             const isActive = ageSecretBtn.classList.toggle('active');
             if (isActive) {
@@ -106,15 +129,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 ageInput.type = 'text';
                 ageInput.value = '秘密';
                 ageInput.disabled = true;
+                ageSlider.disabled = true;
+                ageSlider.classList.add('secret-active');
                 ageUnit.style.display = 'none';
             } else {
                 ageInput.type = 'number';
                 // Restore previous numeric value
                 ageInput.value = ageInput.dataset.prevVal || 20;
                 ageInput.disabled = false;
+                ageSlider.disabled = false;
+                ageSlider.value = ageInput.value;
+                ageSlider.classList.remove('secret-active');
                 ageUnit.style.display = 'inline';
+                updateSliderProgress();
             }
         });
+
+        // Init progress
+        updateSliderProgress();
     };
 
     const formatTime = (h) => {
@@ -186,11 +218,22 @@ document.addEventListener('DOMContentLoaded', () => {
         ageInput.type = 'number';
         ageInput.value = '20';
         ageInput.disabled = false;
+        ageSlider.disabled = false;
+        ageSlider.value = '20';
+        ageSlider.classList.remove('secret-active');
         ageSecretBtn.classList.remove('active');
         ageUnit.style.display = 'inline';
         inputForm.classList.remove('hidden');
         resultArea.classList.add('hidden');
         spiritMessage.textContent = "「次は何を無駄にしているか調べますか？ お手柔らかに。」";
+
+        // Update slider progress on reset
+        const updateSliderProgress = () => {
+            const val = ageSlider.value;
+            const percentage = ((val - 1) / (100 - 1)) * 100;
+            ageSlider.style.setProperty('--progress', `${percentage}%`);
+        };
+        updateSliderProgress();
 
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
