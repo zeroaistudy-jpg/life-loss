@@ -355,7 +355,8 @@ header {
     border-radius: 4px;
     padding: 5px 10px;
     flex: 1;
-    /* Expand to fill space */
+    position: relative;
+    /* For absolute unit positioning */
 }
 
 .age-input-box-wrapper input {
@@ -366,19 +367,29 @@ header {
     color: #fff;
     font-size: 1.4rem;
     font-family: 'Orbitron', sans-serif;
-    text-align: center;
+    text-align: right;
+    padding-right: 55px;
+    /* Room for unit and arrows */
 }
 
 .age-input-box-wrapper input:focus {
     outline: none;
 }
 
+/* Ensure numeric spin buttons are at the far right */
+.age-input-box-wrapper input::-webkit-inner-spin-button,
+.age-input-box-wrapper input::-webkit-outer-spin-button {
+    opacity: 1;
+    cursor: pointer;
+}
+
 .age-input-box-wrapper .unit {
-    position: static;
-    /* Override previous absolute */
+    position: absolute;
+    right: 35px;
+    /* To the left of the arrows */
     color: #fff;
     font-size: 1.1rem;
-    pointer-events: auto;
+    pointer-events: none;
 }
 
 .age-secret-btn {
@@ -433,10 +444,11 @@ header {
     appearance: none;
     width: 18px;
     height: 18px;
-    background: #fff;
+    background: #3b82f6;
+    /* Blue thumb */
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
     margin-top: -2px;
     /* Center relative to track height */
 }
@@ -444,10 +456,11 @@ header {
 .age-bar::-moz-range-thumb {
     width: 18px;
     height: 18px;
-    background: #fff;
+    background: #3b82f6;
+    /* Blue thumb */
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
     border: none;
 }
 
@@ -471,6 +484,11 @@ header {
 @media (min-width: 600px) {
     .result-grid {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .result-grid .result-card {
+        height: 100%;
+        width: 100%;
     }
 
     /* Force first two cards (Score & Rate) to be side-by-side and same width */

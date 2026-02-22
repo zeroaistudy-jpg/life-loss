@@ -101,8 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const updateSliderProgress = () => {
             const val = ageSlider.value;
-            const min = ageSlider.min || 1;
-            const max = ageSlider.max || 100;
+            const min = parseFloat(ageSlider.min) || 1;
+            const max = parseFloat(ageSlider.max) || 130;
             const percentage = ((val - min) / (max - min)) * 100;
             ageSlider.style.setProperty('--progress', `${percentage}%`);
         };
@@ -228,12 +228,14 @@ document.addEventListener('DOMContentLoaded', () => {
         spiritMessage.textContent = "「次は何を無駄にしているか調べますか？ お手柔らかに。」";
 
         // Update slider progress on reset
-        const updateSliderProgress = () => {
+        const updateSliderProgressReset = () => {
             const val = ageSlider.value;
-            const percentage = ((val - 1) / (100 - 1)) * 100;
+            const min = parseFloat(ageSlider.min) || 1;
+            const max = parseFloat(ageSlider.max) || 130;
+            const percentage = ((val - min) / (max - min)) * 100;
             ageSlider.style.setProperty('--progress', `${percentage}%`);
         };
-        updateSliderProgress();
+        updateSliderProgressReset();
 
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
