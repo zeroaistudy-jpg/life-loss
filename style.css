@@ -334,6 +334,10 @@ header {
 
 /* Results Grid Fix */
 
+.quiz-meta-info {
+    color: #fff;
+}
+
 /* Age UI Step 2: Row Layout */
 .age-row-container {
     display: flex;
