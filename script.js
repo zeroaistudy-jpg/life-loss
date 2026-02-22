@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (val === 1) return sum + QUESTIONS[i].points;
             return sum;
         }, 0));
-        const dailyLossHours = totalScore * 0.5;
+        const dailyLossHours = (totalScore / MAX_SCORE) * 24;
         const annualLossHours = dailyLossHours * 365;
         const currentTotalLossHours = Math.floor(annualLossHours * age);
         const currentTotalLossDays = (currentTotalLossHours / 24).toFixed(1);
