@@ -333,7 +333,21 @@ document.addEventListener('DOMContentLoaded', () => {
         inputForm.classList.add('hidden');
         resultArea.classList.remove('hidden');
 
-        // Populate Choices Summary
+        // Load and update history from LocalStorage
+        let choiceHistory = JSON.parse(localStorage.getItem('lifeLossChoiceHistory'));
+        if (!choiceHistory || !Array.isArray(choiceHistory) || choiceHistory.length !== QUESTIONS.length) {
+            choiceHistory = Array.from({ length: QUESTIONS.length }, () => ({ yes: 0, neutral: 0, no: 0 }));
+        }
+
+        // Update with current answers
+        answers.forEach((ans, i) => {
+            if (ans === 1) choiceHistory[i].yes++;
+            else if (ans === 0) choiceHistory[i].neutral++;
+            else if (ans === -1) choiceHistory[i].no++;
+        });
+        localStorage.setItem('lifeLossChoiceHistory', JSON.stringify(choiceHistory));
+
+        // Populate Choices Summary with Stats
         choicesList.innerHTML = '';
         QUESTIONS.forEach((q, i) => {
             const answerVal = answers[i];
@@ -351,12 +365,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 answerClass = "answer-no";
             }
 
+            // Calculate history percentages
+            const hist = choiceHistory[i];
+            const totalHist = hist.yes + hist.neutral + hist.no;
+            const yesPct = totalHist > 0 ? Math.round((hist.yes / totalHist) * 100) : 0;
+            const neutralPct = totalHist > 0 ? Math.round((hist.neutral / totalHist) * 100) : 0;
+            const noPct = totalHist > 0 ? Math.round((hist.no / totalHist) * 100) : 0;
+
             const choiceItem = document.createElement('div');
             choiceItem.className = 'choice-item';
             choiceItem.innerHTML = `
-                <span class="choice-number">${i + 1}.</span>
-                <span class="choice-text">${q.text}</span>
-                <span class="choice-answer ${answerClass}">${answerText}</span>
+                <div class="choice-main-row">
+                    <span class="choice-number">${i + 1}.</span>
+                    <span class="choice-text">${q.text}</span>
+                    <span class="choice-answer ${answerClass}">${answerText}</span>
+                </div>
+                <div class="choice-stats-row">
+                    <div class="stat-bar-container">
+                        <div class="stat-bar yes-bar" style="width: ${yesPct}%;" title="はい: ${yesPct}%"></div>
+                        <div class="stat-bar neutral-bar" style="width: ${neutralPct}%;" title="どちらでもない: ${neutralPct}%"></div>
+                        <div class="stat-bar no-bar" style="width: ${noPct}%;" title="いいえ: ${noPct}%"></div>
+                    </div>
+                    <div class="stat-labels">
+                        <span class="stat-label yes-label ${answerVal === 1 ? 'active-stat' : ''}">はい ${yesPct}%</span>
+                        <span class="stat-label neutral-label ${answerVal === 0 ? 'active-stat' : ''}">－ ${neutralPct}%</span>
+                        <span class="stat-label no-label ${answerVal === -1 ? 'active-stat' : ''}">いいえ ${noPct}%</span>
+                    </div>
+                </div>
             `;
             choicesList.appendChild(choiceItem);
         });
