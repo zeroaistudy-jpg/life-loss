@@ -1,5 +1,5 @@
 /**
- * Loss Lab Series: Life Loss Lab
+ * 虚無ラボ(void_lab): 虚無の領収書
  * Quiz format: 20 Questions about time wasting habits.
  */
 
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const LAB_CONFIG = {
-        title: "人生損失ラボ - 虚無への問い",
+        title: "虚無の領収書 - 虚無への問い",
         benzPrice: 15000000,
         hourlyWage: 1200
     };
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const share = () => {
         const rate = nihilityRateText.textContent;
         const benz = benzCountText.textContent;
-        const text = `【人生損失ラボ】私の人生の虚無率は ${rate}% でした。これまでの損失はベンツ ${benz} 台分に相当するようです。 #人生損失ラボ #損失ラボシリーズ`;
+        const text = `【虚無の領収書】私の人生の虚無率は ${rate}% でした。これまでの虚無はベンツ ${benz} 台分に相当するようです。 #虚無の領収書 #虚無ラボ`;
         const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
         window.open(url, '_blank');
     };
