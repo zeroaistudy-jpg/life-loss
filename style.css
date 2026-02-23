@@ -253,8 +253,8 @@ header {
 }
 
 .option-btn.active[data-value="0"] {
-    background: rgba(148, 163, 184, 0.2);
-    border-color: var(--text-muted);
+    background: rgba(34, 197, 94, 0.2);
+    border-color: #22c55e;
     color: #fff;
 }
 
@@ -692,19 +692,19 @@ header {
 }
 
 .choice-answer.answer-yes {
+    color: #93c5fd;
+    background: rgba(59, 130, 246, 0.15);
+}
+
+.choice-answer.answer-no {
     color: #fca5a5;
     background: rgba(239, 68, 68, 0.15);
 }
 
-.choice-answer.answer-no {
-    color: #86efac;
-    background: rgba(34, 197, 94, 0.15);
-}
-
 .choice-answer.answer-neutral,
 .choice-answer.answer-unanswered {
-    color: var(--text-muted);
-    background: rgba(255, 255, 255, 0.05);
+    color: #86efac;
+    background: rgba(34, 197, 94, 0.15);
 }
 
 /* Footer */
