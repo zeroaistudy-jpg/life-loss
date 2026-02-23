@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虚無の領収書 | 虚無ラボ(void_lab)</title>
+    <meta name="description" content="あなたの何気ない無駄時間が、一生でどれほどの虚無になるか可視化します。砂時計の精があなたの「見えない虚無」を診断。">
+
+    <!-- OGP -->
+    <meta property="og:title" content="虚無の領収書 | 虚無ラボ(void_lab)">
+    <meta property="og:description" content="あなたの無駄時間を寿命と金額で可視化。砂時計の精からの「刺さる」一言メッセージ。">
+    <meta property="og:image" content="assets/og_image.png">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark-theme">
+    <div class="container">
+        <header>
+            <h1 class="glow-text">虚無ラボ <span class="sub-title">(void_lab)</span></h1>
+            <p class="lab-tagline">〜見えない虚無を可視化する〜</p>
+        </header>
+
+        <main>
+            <section id="tool-container" class="glass-card">
+                <div class="character-area">
+                    <img src="assets/hourglass_spirit.png" alt="砂時計の精" id="spirit-img">
+                    <div class="speech-bubble" id="spirit-message">
+                        「ようこそ、虚無ラボ(void_lab)へ。あなたの貴重な時間が、どれだけ『虚無』に消えているか調べてあげましょう。」
+                    </div>
+                </div>
+
+                <div class="input-form">
+                    <h2 id="lab-title">虚無の領収書 - 虚無への問い</h2>
+
+                    <div class="input-section">
+                        <div class="age-row-container">
+                            <label class="age-label">年齢</label>
+                            <div class="age-input-box-wrapper">
+                                <input type="number" id="age" value="20" min="1" max="130">
+                                <span class="unit" id="age-unit">歳</span>
+                                <div class="age-spin-btns" id="age-spin-btns">
+                                    <button class="age-spin-up" id="age-spin-up">▲</button>
+                                    <button class="age-spin-down" id="age-spin-down">▼</button>
+                                </div>
+                            </div>
+                            <button id="age-secret-btn" class="age-secret-btn">秘密</button>
+                        </div>
+                        <div class="age-bar-container">
+                            <input type="range" id="age-slider" min="1" max="130" value="20" class="age-bar">
+                        </div>
+                    </div>
+
+                    <div class="quiz-container">
+                        <p class="quiz-instructions">以下の項目について、あなたの習慣に当てはまるものを選んでください。</p>
+                        <p class="quiz-meta-info">※ 質問は全部で20問です</p>
+                        <div id="questions-list">
+                            <!-- JS でここに質問が注入されます -->
+                        </div>
+                    </div>
+
+                    <button id="calc-btn" class="primary-btn">解析を開始する</button>
+                </div>
+
+                <div id="result-area" class="hidden">
+                    <div class="result-grid">
+                        <div class="result-card">
+                            <h3>総合虚無スコア</h3>
+                            <div class="score-display">
+                                <span class="value" id="total-score">-</span>
+                                <span class="unit">pt</span>
+                            </div>
+                        </div>
+                        <div class="result-card highlight-card">
+                            <h3>人生の虚無率</h3>
+                            <div class="score-display">
+                                <span class="value highlight" id="nihility-rate">-</span>
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                        <div class="result-card">
+                            <h3>一日当たりの虚無時間</h3>
+                            <p class="value" id="daily-loss">-</p>
+                            <span class="unit">時間 / 日</span>
+                        </div>
+                        <div class="result-card">
+                            <h3>過去の累計虚無時間</h3>
+                            <div class="multi-value">
+                                <p class="value highlight" id="total-loss-time">-</p>
+                                <p class="sub-value" id="total-loss-days">-</p>
+                            </div>
+                            <span class="unit">（今日まで）</span>
+                        </div>
+                        <div class="result-card" id="money-loss-card">
+                            <h3>過去の累計虚無金額</h3>
+                            <p class="value" id="total-loss-money">-</p>
+                            <span class="unit">（時給1,200円換算）</span>
+                        </div>
+                    </div>
+
+                    <div class="benz-section">
+                        <h4>虚無金額をベンツ（1,500万円）に換算すると</h4>
+                        <div class="benz-display">
+                            <span id="benz-count" class="benz-value">-</span>
+                            <span class="unit">台分</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card personality-card">
+                        <h3 class="personality-title">性格タイプ：<span class="highlight" id="personality-name"
+                                style="font-size: 1.8rem;">-</span> <span id="personality-icon"
+                                style="font-size: 1.5rem; vertical-align: middle;"></span></h3>
+                        <p id="personality-desc" class="personality-desc"
+                            style="text-align: left; margin: 10px 0; font-size: 0.95rem;">-</p>
+                        <div class="personality-meta">
+                            <span id="personality-keywords" class="personality-keyword-tag">-</span>
+                        </div>
+                    </div>
+
+                    <div class="share-area">
+                        <button id="share-btn" class="share-btn">Xでシェアして戒める</button>
+                        <button id="reset-btn" class="secondary-btn">再検査</button>
+                    </div>
+
+                    <div class="choices-summary" id="choices-summary">
+                        <h3>自分の選択と他の人の選択</h3>
+                        <div id="choices-list"></div>
+                    </div>
+
+                    <div class="share-area">
+                        <button id="share-btn-bottom" class="share-btn">Xでシェアして戒める</button>
+                        <button id="reset-btn-bottom" class="secondary-btn">再検査</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 虚無ラボ(void_lab) / 砂時計の精</p>
+        </footer>
+    </div>
+
+    <!-- Google Analytics placeholder -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
