@@ -311,7 +311,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const annualLossHours = dailyLossHours * 365;
         const currentTotalLossHours = Math.floor(annualLossHours * age);
         const currentTotalLossDays = (currentTotalLossHours / 24).toFixed(1);
-        const moneyLoss = Math.floor(currentTotalLossHours * 8 * LAB_CONFIG.hourlyWage);
+
+        // Calculate money loss only for ages 17 and above
+        const workingAge = Math.max(0, age - 16);
+        const workingLossHours = Math.floor(annualLossHours * workingAge);
+        const moneyLoss = Math.floor(workingLossHours * 8 * LAB_CONFIG.hourlyWage);
         const benzCount = (moneyLoss / LAB_CONFIG.benzPrice).toFixed(2);
         const nihilityRate = ((totalScore / MAX_SCORE) * 100).toFixed(0);
 
