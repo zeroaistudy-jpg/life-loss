@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const calcBtn = document.getElementById('calc-btn');
     const resultArea = document.getElementById('result-area');
     const inputForm = document.querySelector('.input-form');
+    const choicesList = document.getElementById('choices-list');
 
     const totalScoreText = document.getElementById('total-score');
     const nihilityRateText = document.getElementById('nihility-rate');
@@ -246,6 +247,34 @@ document.addEventListener('DOMContentLoaded', () => {
         // Transitions
         inputForm.classList.add('hidden');
         resultArea.classList.remove('hidden');
+
+        // Populate Choices Summary
+        choicesList.innerHTML = '';
+        QUESTIONS.forEach((q, i) => {
+            const answerVal = answers[i];
+            let answerText = "未回答";
+            let answerClass = "answer-unanswered";
+
+            if (answerVal === 1) {
+                answerText = "はい";
+                answerClass = "answer-yes";
+            } else if (answerVal === 0) {
+                answerText = "どちらでもない";
+                answerClass = "answer-neutral";
+            } else if (answerVal === -1) {
+                answerText = "いいえ";
+                answerClass = "answer-no";
+            }
+
+            const choiceItem = document.createElement('div');
+            choiceItem.className = 'choice-item';
+            choiceItem.innerHTML = `
+                <span class="choice-number">${i + 1}.</span>
+                <span class="choice-text">${q.text}</span>
+                <span class="choice-answer ${answerClass}">${answerText}</span>
+            `;
+            choicesList.appendChild(choiceItem);
+        });
 
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
