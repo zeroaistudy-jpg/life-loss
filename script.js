@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const shareBtn = document.getElementById('share-btn');
     const resetBtn = document.getElementById('reset-btn');
+    const shareBtnBottom = document.getElementById('share-btn-bottom');
+    const resetBtnBottom = document.getElementById('reset-btn-bottom');
 
     // --- State ---
     const answers = new Array(QUESTIONS.length).fill(0); // 1, -1, 0
@@ -329,6 +331,8 @@ document.addEventListener('DOMContentLoaded', () => {
     calcBtn.addEventListener('click', calculate);
     resetBtn.addEventListener('click', reset);
     shareBtn.addEventListener('click', share);
+    if (resetBtnBottom) resetBtnBottom.addEventListener('click', reset);
+    if (shareBtnBottom) shareBtnBottom.addEventListener('click', share);
 
     // Run init
     init();
