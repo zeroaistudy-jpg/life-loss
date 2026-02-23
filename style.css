@@ -677,54 +677,24 @@ header {
     width: 100%;
 }
 
-.choice-stats-row {
+.choice-stats-text {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    justify-content: flex-end;
+    gap: 12px;
     width: 100%;
-    margin-top: 4px;
-}
-
-.stat-bar-container {
-    display: flex;
-    height: 6px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.stat-bar {
-    height: 100%;
-    transition: width 0.5s ease-in-out;
-}
-
-.stat-bar.yes-bar {
-    background-color: #60a5fa;
-}
-
-.stat-bar.neutral-bar {
-    background-color: #4ade80;
-}
-
-.stat-bar.no-bar {
-    background-color: #f87171;
-}
-
-.stat-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.7rem;
+    margin-top: 6px;
+    font-size: 0.85rem;
     color: var(--text-muted);
 }
 
 .stat-label {
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 .stat-label.active-stat {
     opacity: 1;
     font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
 .yes-label.active-stat {

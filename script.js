@@ -380,17 +380,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="choice-text">${q.text}</span>
                     <span class="choice-answer ${answerClass}">${answerText}</span>
                 </div>
-                <div class="choice-stats-row">
-                    <div class="stat-bar-container">
-                        <div class="stat-bar yes-bar" style="width: ${yesPct}%;" title="はい: ${yesPct}%"></div>
-                        <div class="stat-bar neutral-bar" style="width: ${neutralPct}%;" title="どちらでもない: ${neutralPct}%"></div>
-                        <div class="stat-bar no-bar" style="width: ${noPct}%;" title="いいえ: ${noPct}%"></div>
-                    </div>
-                    <div class="stat-labels">
-                        <span class="stat-label yes-label ${answerVal === 1 ? 'active-stat' : ''}">はい ${yesPct}%</span>
-                        <span class="stat-label neutral-label ${answerVal === 0 ? 'active-stat' : ''}">－ ${neutralPct}%</span>
-                        <span class="stat-label no-label ${answerVal === -1 ? 'active-stat' : ''}">いいえ ${noPct}%</span>
-                    </div>
+                <div class="choice-stats-text">
+                    <span class="stat-label yes-label ${answerVal === 1 ? 'active-stat' : ''}">はい: ${yesPct}%</span>
+                    <span class="stat-label neutral-label ${answerVal === 0 ? 'active-stat' : ''}">どちらでもない: ${neutralPct}%</span>
+                    <span class="stat-label no-label ${answerVal === -1 ? 'active-stat' : ''}">いいえ: ${noPct}%</span>
                 </div>
             `;
             choicesList.appendChild(choiceItem);
