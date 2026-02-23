@@ -6,27 +6,78 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Configuration ---
     const QUESTIONS = [
-        { text: "たまにさっきまで何をしていたか忘れる", points: 4 },
-        { text: "「明日から本気出す」を実行できたことがない", points: 5 },
-        { text: "惰性でゲームを続けてしまう", points: 2 },
-        { text: "風呂に入るまでに無駄に時間がかかる", points: 2 },
-        { text: "何度も同じ場所をウロウロする", points: 2 },
-        { text: "暇になるとすぐスマホを開く", points: 3 },
-        { text: "セール品を見ているだけで時間が溶ける", points: 3 },
-        { text: "気づいたら時間が経っていて驚く", points: 3 },
-        { text: "やることリストを作るだけで満足する", points: 4 },
-        { text: "買うべきかを悩んでいるうちに、商品が値上がりして後悔する", points: 3 },
-        { text: "生活リズムがズレて戻すのに時間がかかる", points: 4 },
-        { text: "片付けを始めると何故か漫画を読み始める", points: 4 },
-        { text: "外に出る準備をしたけど、疲れてやめる", points: 3 },
-        { text: "買う気がないのにレビューだけ読む", points: 2 },
-        { text: "休憩のつもりが長時間になる", points: 2 },
-        { text: "選択肢が多いほど選べなくなる", points: 4 },
-        { text: "「まずは形から」で道具だけが増える", points: 2 },
-        { text: "物を取りに行ったのに手ぶらで戻ってくる", points: 2 },
-        { text: "自分のやる気スイッチが壊れてる気がする", points: 5 },
-        { text: "今この時間も虚無だと思ってる", points: 5 }
+        { text: "たまにさっきまで何をしていたか忘れる", points: 4, type: "散漫遊心" },
+        { text: "「明日から本気出す」を実行できたことがない", points: 5, type: "逃避傾向" },
+        { text: "惰性でゲームを続けてしまう", points: 2, type: "惰性循環" },
+        { text: "風呂に入るまでに無駄に時間がかかる", points: 2, type: "無気停滞" },
+        { text: "何度も同じ場所をウロウロする", points: 2, type: "散漫遊心" },
+        { text: "暇になるとすぐスマホを開く", points: 3, type: "静観無為" },
+        { text: "セール品を見ているだけで時間が溶ける", points: 3, type: "情報過飽" },
+        { text: "気づいたら時間が経っていて驚く", points: 3, type: "逃避傾向" },
+        { text: "やることリストを作るだけで満足する", points: 4, type: "思考迷走" },
+        { text: "買うべきかを悩んでいるうちに、商品が値上がりして後悔する", points: 3, type: "思考迷走" },
+        { text: "生活リズムがズレて戻すのに時間がかかる", points: 4, type: "感情揺動" },
+        { text: "片付けを始めると何故か漫画を読み始める", points: 4, type: "惰性循環" },
+        { text: "外に出る準備をしたけど、疲れてやめる", points: 3, type: "無気停滞" },
+        { text: "買う気がないのにレビューだけ読む", points: 2, type: "情報過飽" },
+        { text: "休憩のつもりが長時間になる", points: 2, type: "惰性循環" },
+        { text: "選択肢が多いほど選べなくなる", points: 4, type: "思考迷走" },
+        { text: "「まずは形から」で道具だけが増える", points: 2, type: "情報過飽" },
+        { text: "物を取りに行ったのに手ぶらで戻ってくる", points: 2, type: "散漫遊心" },
+        { text: "自分のやる気スイッチが壊れてる気がする", points: 5, type: "無気停滞" },
+        { text: "今この時間も虚無だと思ってる", points: 5, type: "感情揺動" }
     ];
+
+    const PERSONALITY_TYPES = {
+        "散漫遊心": {
+            description: "集中が続きにくく、気づけば興味の向くままに行動してしまう傾向があります。新しい刺激に惹かれやすく、スマホやSNSに吸い込まれやすいタイプです。悪い意味ではなく、好奇心が強く世界を広く見渡せる資質でもあります。環境を整えるだけで行動の質が大きく変わる、伸びしろの多い性格です。",
+            keywords: "好奇心・気まぐれ・刺激追求",
+            motif: "風、紙飛行機、流れる雲",
+            icon: "🍃"
+        },
+        "惰性循環": {
+            description: "同じ行動パターンを繰り返しやすく、気づけば時間が流れていることが多いタイプです。行動の切り替えが苦手で、先延ばしが積み重なりやすい傾向があります。ただし、一度流れに乗ると継続力が高く、安定した成果を出せる強みも持っています。小さなスイッチを作るだけで、日常が驚くほどスムーズに動き始めます。",
+            keywords: "惰性・ループ・切り替え困難",
+            motif: "歯車、ループ矢印",
+            icon: "⚙️"
+        },
+        "無気停滞": {
+            description: "やる気が湧きにくく、始めるまでに大きなエネルギーを必要とするタイプです。心身の負荷が溜まりやすく、休息と行動のバランスが崩れやすい傾向があります。しかし、適切なペースさえ掴めば、安定して前に進める持久力を秘めています。まずは負荷の低い行動から整えることで、自然と流れが生まれていきます。",
+            keywords: "低エネルギー・停滞・重さ",
+            motif: "岩、重り、止まった時計",
+            icon: "🪨"
+        },
+        "思考迷走": {
+            description: "考えすぎて動けなくなることが多く、選択肢が多いほど迷いやすいタイプです。慎重さが強みである一方、完璧を求めすぎて時間が溶けてしまうことがあります。ただ、物事を深く理解しようとする姿勢は大きな武器でもあります。「十分に良い」を受け入れることで、行動が驚くほど軽くなります。",
+            keywords: "迷い・慎重・完璧主義",
+            motif: "迷路、霧、分岐する道",
+            icon: "🌫️"
+        },
+        "情報過飽": {
+            description: "情報を集めすぎて処理しきれず、迷いが増えてしまうタイプです。インプットが多いほど判断が難しくなり、行動が後回しになりがちです。しかし、知識欲が強く、学びを深める力は非常に高い資質です。情報を絞るだけで、思考も行動も一気にクリアになります。",
+            keywords: "過剰インプット・迷走・知識欲",
+            motif: "本の山、波、渦",
+            icon: "📚"
+        },
+        "感情揺動": {
+            description: "気分の波が行動に強く影響し、モチベーションの上下が激しいタイプです。感情に引っ張られやすい一方で、感受性が豊かで創造力に優れています。気分が乗ったときの集中力や行動力は、他のタイプを圧倒するほどです。日常に小さなルーティンを作ることで、安定感が大きく高まります。",
+            keywords: "気分依存・波・感受性",
+            motif: "波紋、炎、天気",
+            icon: "🔥"
+        },
+        "逃避傾向": {
+            description: "負荷の高いタスクを避けたくなり、つい別のことに逃げてしまうタイプです。現実逃避的な行動に走りやすいものの、それは自分を守る防衛反応でもあります。本来は慎重で、状況をよく観察する力を持っています。小さな成功体験を積むことで、行動のハードルが自然と下がっていきます。",
+            keywords: "回避・先延ばし・防衛",
+            motif: "影、トンネル、分岐点",
+            icon: "🕳️"
+        },
+        "静観無為": {
+            description: "積極的に動くよりも、状況を静かに見守ることが多いタイプです。変化より安定を好み、受動的な時間が長くなりやすい傾向があります。しかし、落ち着いた判断力と、周囲をよく観察する力を持っています。行動のハードルを少し下げるだけで、日常がゆっくりと動き始めます。",
+            keywords: "受動・安定志向・静観",
+            motif: "水面、石庭、静かな森",
+            icon: "🧘"
+        }
+    };
 
     const MAX_SCORE = QUESTIONS.reduce((sum, q) => sum + q.points, 0); // 62
 
@@ -77,6 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const ageSpinDown = document.getElementById('age-spin-down');
     const ageSpinBtns = document.getElementById('age-spin-btns');
     const spiritMessage = document.getElementById('spirit-message');
+
+    // Personality DOM elements
+    const personalityNameText = document.getElementById('personality-name');
+    const personalityIconText = document.getElementById('personality-icon');
+    const personalityDescText = document.getElementById('personality-desc');
+    const personalityKeywordsText = document.getElementById('personality-keywords');
+    const personalityMotifText = document.getElementById('personality-motif');
 
     const shareBtn = document.getElementById('share-btn');
     const resetBtn = document.getElementById('reset-btn');
@@ -224,11 +282,31 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Calculate weighted score
+        // Calculate weighted score & personality types
+        const typeScores = {
+            "散漫遊心": 0, "惰性循環": 0, "無気停滞": 0, "思考迷走": 0,
+            "情報過飽": 0, "感情揺動": 0, "逃避傾向": 0, "静観無為": 0
+        };
+
         const totalScore = Math.max(0, answers.reduce((sum, val, i) => {
-            if (val === 1) return sum + QUESTIONS[i].points;
+            if (val === 1) {
+                const questionPoints = QUESTIONS[i].points;
+                const questionType = QUESTIONS[i].type;
+                typeScores[questionType] += questionPoints;
+                return sum + questionPoints;
+            }
             return sum;
         }, 0));
+
+        // Determine dominant personality type
+        let dominantType = "静観無為"; // default fallback
+        let maxTypeScore = -1;
+        for (const [type, score] of Object.entries(typeScores)) {
+            if (score > maxTypeScore) {
+                maxTypeScore = score;
+                dominantType = type;
+            }
+        }
         const dailyLossHours = (totalScore / MAX_SCORE) * 12;
         const annualLossHours = dailyLossHours * 365;
         const currentTotalLossHours = Math.floor(annualLossHours * age);
@@ -245,6 +323,14 @@ document.addEventListener('DOMContentLoaded', () => {
         totalLossDaysText.textContent = `（約 ${parseFloat(currentTotalLossDays).toLocaleString()} 日分）`;
         totalLossMoneyText.textContent = formatMoney(moneyLoss);
         benzCountText.textContent = benzCount;
+
+        // Populate Personality Diagnosis
+        const personalityData = PERSONALITY_TYPES[dominantType];
+        personalityNameText.textContent = dominantType;
+        personalityIconText.textContent = personalityData.icon;
+        personalityDescText.innerHTML = personalityData.description;
+        personalityKeywordsText.textContent = `キーワード：${personalityData.keywords}`;
+        personalityMotifText.textContent = `モチーフ：${personalityData.motif}`;
 
         // Transitions
         inputForm.classList.add('hidden');
@@ -322,7 +408,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const share = () => {
         const rate = nihilityRateText.textContent;
         const benz = benzCountText.textContent;
-        const text = `【虚無の領収書】私の人生の虚無率は ${rate}% でした。これまでの虚無はベンツ ${benz} 台分に相当するようです。 #虚無の領収書 #虚無ラボ`;
+        const personality = personalityNameText.textContent;
+        const text = `【虚無の領収書】私の人生の虚無率は ${rate}% で、性格タイプは「${personality}」でした。これまでの虚無はベンツ ${benz} 台分に相当するようです。 #虚無の領収書 #虚無ラボ`;
         const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
         window.open(url, '_blank');
     };
